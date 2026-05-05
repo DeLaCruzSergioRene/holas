@@ -3,6 +3,7 @@ from controllers.UserController import AuthController
 from controllers.TareaController import TareaController
 from views.LoginView import LoginView
 from views.dashboard import DashboardView
+from views.RegisterView import RegisterView
 
 def start(page: ft.Page):
     # Instanciamos los controladores una sola vez
@@ -15,6 +16,8 @@ def start(page: ft.Page):
             page.views.append(LoginView(page, auth_ctrl))
         elif page.route == "/dashboard":
             page.views.append(DashboardView(page, task_ctrl))
+        elif page.route == "/registro":
+            page.views.append(RegisterView(page, auth_ctrl))
         page.update()
 
     page.on_route_change = route_change
