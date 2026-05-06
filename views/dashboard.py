@@ -1,7 +1,7 @@
 import flet as ft
 
 def DashboardView(page, tarea_controller):
-    user = page.session.get("user")
+    user = page.current_user
     lista_tareas = ft.Column(scroll=ft.ScrollMode.ALWAYS, expand=True)
 
     def refresh():
@@ -29,15 +29,21 @@ def DashboardView(page, tarea_controller):
             txt_titulo.value = ""
             refresh()
 
+    refresh()
+    
     return ft.View("/dashboard", [
         ft.AppBar(
             title=ft.Text(f"Bienvenido, {user['nombre']}"),
             actions=[ft.IconButton(ft.Icons.EXIT_TO_APP, on_click=lambda _: page.go("/"))]
         ),
-        ft.Column([
-            ft.Row([txt_titulo, ft.FloatingActionButton(icon=ft.Icons.ADD, on_click=add_task)]),
-            ft.Divider(),
-            ft.Text("Mis Tareas Pendientes", size=20, weight="bold"),
-            lista_tareas
-        ], expand=True, padding=20)
-    ], on_open=lambda _: refresh())
+        ft.Container(
+            content=ft.Column([
+                ft.Row([txt_titulo, ft.FloatingActionButton(icon=ft.Icons.ADD, on_click=add_task)]),
+                ft.Divider(),
+                ft.Text("Mis Tareas Pendientes", size=20, weight="bold"),
+                lista_tareas
+            ], expand=True),
+            padding=20,
+            expand=True
+        )
+    ])

@@ -32,6 +32,16 @@ class UsuarioModel:
         user = cursor.fetchone()
         conn.close()
         
-        if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-            return user
+        if user:
+            try:
+                # Convertir la contraseña guardada a bytes si es string
+                stored_hash = user['password']
+                if isinstance(stored_hash, str):
+                    stored_hash = stored_hash.encode('utf-8')
+                
+                if bcrypt.checkpw(password.encode('utf-8'), stored_hash):
+                    return user
+            except Exception as e:
+                print(f"Error en validación de contraseña: {e}")
+                return None
         return None
