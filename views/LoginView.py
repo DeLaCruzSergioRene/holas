@@ -27,7 +27,7 @@ def LoginView(page: ft.Page, auth_controller):
 
         if user:
             page.current_user = user
-            page.go("/dashboard")
+            page.go("/tarea")
         else:
             page.snack_bar = ft.SnackBar(ft.Text(msg))
             page.snack_bar.open = True
