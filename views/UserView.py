@@ -1,9 +1,10 @@
 import flet as ft
 
-
+# Vista de perfil de usuario
 def UserView(page: ft.Page):
     user = page.current_user
 
+    # Vista simple del perfil
     return ft.View(
         route="/usuario",
         appbar=ft.AppBar(title=ft.Text("Perfil")),
@@ -15,3 +16,4 @@ def UserView(page: ft.Page):
             ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=20)
         ]
     )
+

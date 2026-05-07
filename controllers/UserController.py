@@ -2,6 +2,7 @@ from models.UserModel import UsuarioModel
 from models.schemasModel import UsuarioSchema, UsuarioLogin
 from pydantic import ValidationError
 
+# Controlador para autenticar y registrar usuarios
 class AuthController:
     def __init__(self):
         self.model = UsuarioModel()
@@ -14,8 +15,8 @@ class AuthController:
             return None, "Credenciales inválidas"
     
     def registrar_usuario(self, nombre, email, password):
+        # Valida y crea el usuario en la base de datos
         try:
-            # Validar datos con el Schema
             usuario_data = UsuarioSchema(nombre=nombre, email=email, password=password)
             success = self.model.registrar(usuario_data)
             if success:

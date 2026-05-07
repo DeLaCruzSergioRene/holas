@@ -2,6 +2,7 @@ import flet as ft
 
 
 def RegisterView(page: ft.Page, auth_controller):
+    # Campos para registro de nuevo usuario
     nombre_input = ft.TextField(
         label="Nombre completo",
         width=350,
@@ -32,6 +33,7 @@ def RegisterView(page: ft.Page, auth_controller):
     )
 
     def register_click(e):
+        # Validar que todos los campos estén completos
         if not nombre_input.value or not email_input.value or not pass_input.value or not pass_confirm.value:
             page.snack_bar = ft.SnackBar(ft.Text("Por favor, complete todos los campos"))
             page.snack_bar.open = True
@@ -45,6 +47,7 @@ def RegisterView(page: ft.Page, auth_controller):
             return
 
         success, msg = auth_controller.registrar_usuario(nombre_input.value, email_input.value, pass_input.value)
+        # Mostrar resultado del registro
         page.snack_bar = ft.SnackBar(ft.Text(msg))
         page.snack_bar.open = True
         page.update()
@@ -60,6 +63,7 @@ def RegisterView(page: ft.Page, auth_controller):
         color="white"
     )
 
+    # Vista de registro de usuarios
     return ft.View(
         route="/registro",
         vertical_alignment=ft.MainAxisAlignment.CENTER,

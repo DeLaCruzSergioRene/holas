@@ -4,6 +4,7 @@ import flet as ft
 def TareaView(page: ft.Page, tarea_controller):
     user = page.current_user
     lista_tareas = ft.Column(scroll=ft.ScrollMode.ALWAYS, expand=True)
+    # Campos para crear una tarea nueva
     txt_titulo = ft.TextField(label="Título", expand=True)
     txt_descripcion = ft.TextField(label="Descripción", expand=True, min_lines=2)
     dropdown_prioridad = ft.Dropdown(
@@ -16,7 +17,8 @@ def TareaView(page: ft.Page, tarea_controller):
         ]
     )
 
-    def refresh_tasks():
+    def refresh_tareas():
+        # Recargar la lista de tareas desde la base de datos
         lista_tareas.controls.clear()
         for t in tarea_controller.obtener_lista(user['id_usuario']):
             lista_tareas.controls.append(
@@ -27,7 +29,7 @@ def TareaView(page: ft.Page, tarea_controller):
             )
         page.update()
 
-    def add_task(e):
+    def add_tarea(e):
         if txt_titulo.value:
             tarea_controller.guardar_nueva(
                 user['id_usuario'],
@@ -38,9 +40,9 @@ def TareaView(page: ft.Page, tarea_controller):
             )
             txt_titulo.value = ""
             txt_descripcion.value = ""
-            refresh_tasks()
+            refresh_tareas()
 
-    refresh_tasks()
+    refresh_tareas()
 
     return ft.View(
         route="/tarea",
@@ -57,7 +59,7 @@ def TareaView(page: ft.Page, tarea_controller):
                 expand=True,
                 padding=20,
                 content=ft.Column([
-                    ft.Row([txt_titulo, ft.IconButton(ft.Icons.ADD, on_click=add_task)]),
+                    ft.Row([txt_titulo, ft.IconButton(ft.Icons.ADD, on_click=add_tarea)]),
                     txt_descripcion,
                     dropdown_prioridad,
                     lista_tareas

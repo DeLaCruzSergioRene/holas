@@ -1,12 +1,13 @@
 import bcrypt
 from .database import Database
 
+# Modelo para operaciones de usuario
 class UsuarioModel:
     def __init__(self):
         self.db = Database()
 
     def registrar(self, usuario_data):
-        # Encriptar contraseña
+        # Encriptar contraseña antes de guardar
         salt = bcrypt.gensalt()
         hashed_pw = bcrypt.hashpw(usuario_data.password.encode('utf-8'), salt)
 
@@ -36,6 +37,7 @@ class UsuarioModel:
             try:
                 # Convertir la contraseña guardada a bytes si es string
                 stored_hash = user['password']
+                # Comparar contraseña ingresada con la guardada
                 if isinstance(stored_hash, str):
                     stored_hash = stored_hash.encode('utf-8')
                 

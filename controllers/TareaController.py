@@ -5,9 +5,11 @@ class TareaController:
         self.model = TareaModel()
 
     def obtener_lista(self, id_usuario):
+        # Trae todas las tareas del usuario
         return self.model.listar_por_usuario(id_usuario)
 
     def guardar_nueva(self, id_usuario, titulo, desc, prio, clas):
+        # Validar datos mínimos antes de enviar al modelo
         if not titulo:
             return False, "El título es obligatorio"
 

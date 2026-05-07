@@ -4,9 +4,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Clase para conexión con la base de datos MySQL
 class Database:
     @staticmethod
     def get_connection():
+        # Conexión MySQL usando variables de entorno
         return mysql.connector.connect(
             host=os.getenv("DB_HOST", "127.0.0.1"),
             user=os.getenv("DB_USER", "root"),

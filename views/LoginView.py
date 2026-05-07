@@ -1,6 +1,7 @@
 import flet as ft
 
 def LoginView(page: ft.Page, auth_controller):
+    # Campos para iniciar sesión
     email_input = ft.TextField(
         label="Correo electrónico",
         width=350,
@@ -17,6 +18,7 @@ def LoginView(page: ft.Page, auth_controller):
     )
 
     def login_click(e):
+        # Validar que el usuario haya ingresado datos
         if not email_input.value or not pass_input.value:
             page.snack_bar = ft.SnackBar(ft.Text("Por favor, llene todos los campos"))
             page.snack_bar.open = True
@@ -43,6 +45,7 @@ def LoginView(page: ft.Page, auth_controller):
 
     pass_input.on_submit = login_click
 
+    # Vista del formulario de login
     return ft.View(
         route="/",
         vertical_alignment=ft.MainAxisAlignment.CENTER,

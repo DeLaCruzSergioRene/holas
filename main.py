@@ -7,16 +7,19 @@ from views.TareaView import TareaView
 from views.UserView import UserView
 
 def start(page: ft.Page):
+    # Crear los controladores usados por toda la app
     auth_ctrl = AuthController()
     task_ctrl = TareaController()
 
     def route_change(route):
+        # Cambiar vista según la ruta actual
         page.views.clear()
         if page.route == "/":
             page.views.append(LoginView(page, auth_ctrl))
         elif page.route == "/registro":
             page.views.append(RegisterView(page, auth_ctrl))
         elif page.route == "/tarea":
+            # Mostrar gestor solo si el usuario ya inició sesión
             if hasattr(page, 'current_user') and page.current_user:
                 page.views.append(TareaView(page, task_ctrl))
             else:
